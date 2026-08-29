@@ -244,7 +244,14 @@ class AnomalyDetector:
             attribution = r.get("attribution", {})
             if r.get("top_driver") not in ("betweenness", "eigenvector"):
                 continue
-            if r.get("top_detractor") != "degree":
+            # "Weakest contributor" as a strict single minimum is brittle: two
+            # components can sit within noise of each other and swap which one
+            # is technically last, silently turning the detector off. Degree
+            # only needs to be among the bottom two of the six to mean "this
+            # ranking isn't built on contact volume."
+            weakest_two = {k for k, _ in
+                          sorted(attribution.items(), key=lambda kv: kv[1])[:2]}
+            if "degree" not in weakest_two:
                 continue
             d = self.cg.G.nodes[n]
             handsets = len(d.get("phones", []) or [])
@@ -262,7 +269,7 @@ class AnomalyDetector:
                     f"but that ranking is not built on contact volume: with "
                     f"{deg} direct contacts they reach {reach} people in two hops, "
                     f"and of the six scoring components their contact count "
-                    f"contributes the least ({attribution.get('degree', 0):+.3f}) "
+                    f"contributes among the least ({attribution.get('degree', 0):+.3f}) "
                     f"while their position between other members contributes the "
                     f"most ({attribution.get(r['top_driver'], 0):+.3f}). "
                     f"They operate {handsets} attributed handset(s) and carry "

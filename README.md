@@ -18,6 +18,17 @@ every single claim it makes — shows the source record behind it.
 Requires Python 3.10+. No database, no npm, no model downloads.
 
 ```bash
+./start.sh   # → http://127.0.0.1:8000
+```
+
+That sets up the virtual environment, installs dependencies, generates the
+synthetic data on first run, and starts the server. Safe to run again any
+time — each step is skipped once it's already done.
+
+Prefer to do it by hand, or need a step it skips (like the optional scanned
+FIRs)?
+
+```bash
 python3 -m venv venv && source venv/bin/activate   # or activate your existing venv
 cd backend
 pip install -r requirements.txt   # includes python-multipart, required for /api/case/upload

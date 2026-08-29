@@ -418,9 +418,7 @@ input[type=file].q{padding:7px 9px}
         stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M9.6 9.2a2.5 2.5 0 1 1 3.3 2.4c-.6.2-.9.8-.9 1.4v.4"/><path d="M12 17h.01"/></svg></button>
     <select class="role" id="role" title="Signed in as">
       <option value="demo-investigator">Investigator — PSI A. Kulkarni</option>
-      <option value="demo-supervisor">Supervisor — ACP R. Menon</option>
       <option value="demo-admin">Administrator</option>
-      <option value="demo-viewer">Viewer (redacted)</option>
     </select>
   </header>
   <main id="main" class="wide">
@@ -832,7 +830,7 @@ function renderIntake() {
       <div id="iresult"></div>
     </div>` : `
     <div class="panel"><div class="panel-head"><h2>File a new document</h2>
-      <span class="sub">Sign in as an investigator, supervisor or admin to file documents.</span></div></div>`;
+      <span class="sub">Sign in as an investigator or admin to file documents.</span></div></div>`;
 
   const bulkCard = canIngest ? `
     <div class="panel">
@@ -1648,7 +1646,7 @@ async function setView(v) {
   } catch (e) {
     el.innerHTML = `<div class="dash md">${md('# Access denied\n\n**' + e.message +
       '**\n\nThis is the access-control layer working as intended — switch to the ' +
-      'Supervisor or Administrator role in the top right.')}</div>`;
+      'Administrator role in the top right.')}</div>`;
   }
 }
 
@@ -1716,7 +1714,7 @@ async function auditMd() {
   const t = rows.map(r => `| ${r.timestamp.slice(0, 19).replace('T', ' ')} | ${r.user} (${r.role}) | ` +
     `${r.action} | ${JSON.stringify(r.detail).slice(0, 90)} |`).join('\n');
   return `# Audit log\n\nEvery query against case data is recorded before the answer is ` +
-    `returned. Supervisors and administrators can read this log; investigators cannot.\n\n` +
+    `returned. Administrators can read this log; investigators cannot.\n\n` +
     `**Integrity check:** ${chain.intact
       ? `chain intact across ${chain.entries} entries (head ${chain.head_hash}). Each entry ` +
         `carries the hash of the one before it, so altering any line breaks every hash after it.`

@@ -166,7 +166,7 @@ def main():
 
     print("\nSecurity")
     import json as _json
-    p = Principal("demo-supervisor", USERS["demo-supervisor"])
+    p = Principal("demo-admin", USERS["demo-admin"])
     audit(p, "VERIFY_SELF_TEST", {"note": "verification run"})
     chain = verify_chain()
     if not chain["intact"]:

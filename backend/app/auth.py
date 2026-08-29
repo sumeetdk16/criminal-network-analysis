@@ -41,25 +41,17 @@ ROLES = {
     #                  only records/IT stands up a new case file in practice.
     "investigator": {"graph:read", "entity:read", "evidence:read", "query:run",
                      "report:generate", "data:submit"},
-    "supervisor":   {"graph:read", "entity:read", "evidence:read", "query:run",
-                     "report:generate", "audit:read", "analytics:tune",
-                     "data:submit"},
     "admin":        {"graph:read", "entity:read", "evidence:read", "query:run",
                      "report:generate", "audit:read", "analytics:tune",
                      "data:submit", "data:ingest", "user:manage"},
-    "viewer":       {"graph:read"},   # redacted view, no evidence access
 }
 
 # Demo credentials only. Replace with the agency identity provider.
 USERS = {
     "demo-investigator": {"name": "PSI A. Kulkarni", "role": "investigator",
                           "unit": "Anti Narcotics Cell", "badge": "ANC-2291"},
-    "demo-supervisor":   {"name": "ACP R. Menon", "role": "supervisor",
-                          "unit": "Crime Branch", "badge": "CB-104"},
     "demo-admin":        {"name": "System Administrator", "role": "admin",
                           "unit": "IT", "badge": "IT-001"},
-    "demo-viewer":       {"name": "Analyst (read-only)", "role": "viewer",
-                          "unit": "Records", "badge": "RC-556"},
 }
 
 AUDIT_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)),

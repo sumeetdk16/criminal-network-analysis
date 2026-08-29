@@ -245,7 +245,7 @@ while contact count contributes least — so there is no constant to recalibrate
 | `POST /api/query` | natural-language question |
 | `GET /api/pipeline` | extraction and identity-merge transparency view |
 | `GET /api/report/overview` | full case summary |
-| `GET /api/audit` | audit log (supervisor/admin only) |
+| `GET /api/audit` | audit log (admin only) |
 | `GET /api/audit/verify` | hash-chain integrity check |
 | `GET /api/security` | roles, permissions, audit encryption status |
 | `GET /api/ocr` | what OCR read, at what confidence and accuracy |
@@ -256,8 +256,8 @@ while contact count contributes least — so there is no constant to recalibrate
 | `GET /api/entity/{id}/report.pdf` | subject profile as PDF |
 | `GET /api/path.pdf?a=&b=` | connection analysis as PDF |
 
-Authenticate with the `X-Auth-Token` header: `demo-investigator`,
-`demo-supervisor`, `demo-admin` or `demo-viewer`.
+Authenticate with the `X-Auth-Token` header: `demo-investigator` or
+`demo-admin`.
 
 ---
 

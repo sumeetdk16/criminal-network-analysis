@@ -6,10 +6,9 @@ prototype already does, and what a deployment would have to add.
 
 ## What the prototype implements
 
-**Role-based access control.** Four roles with distinct permission sets
-(`auth.py`). An investigator cannot read the audit log. A viewer sees the graph
-with phone numbers and accounts redacted and cannot open evidence at all. Every
-denial is itself audited.
+**Role-based access control.** Two roles with distinct permission sets
+(`auth.py`). An investigator cannot read the audit log; only an administrator
+can. Every denial is itself audited.
 
 **Tamper-evident audit log.** Written *before* the answer is returned, on every
 route that touches case data: who asked, what they asked, which subject, when.
@@ -99,7 +98,7 @@ read-only posture limits the blast radius of a compromise.
 | Silent identity confusion | Explicit-cue-only phone attribution; every merge auditable |
 | "The computer says he's guilty" | No verdict output; influence and findings are leads with visible reasoning |
 | Unsourced assertions | Provenance stored per observation; the UI cannot show a link without its sources |
-| Fishing expeditions | Every query audited with the subject named; supervisors can review |
+| Fishing expeditions | Every query audited with the subject named; administrators can review |
 | Treating absence as innocence | `record_checked` distinguishes *not found* from *no record* everywhere |
 | Over-trusting weak signals | Confidence and corroboration surfaced separately, both filterable |
 | Retroactive editing of the audit trail | SHA-256 hash chain; any alteration is detected and located |

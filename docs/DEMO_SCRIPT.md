@@ -181,9 +181,9 @@ Press <kbd>2</kbd> for **Network**. Drag the timeline slider, then press **repla
 
 Press <kbd>6</kbd> for the **Audit** log. It refuses.
 
-> "Investigators can't read the audit log. Switch to supervisor —"
+> "Investigators can't read the audit log. Switch to admin —"
 
-Change the role to **Supervisor**, click Audit log again.
+Change the role to **Administrator**, click Audit log again.
 
 > "— and there's every query I just ran, logged before the answer came back.
 > Note the integrity line: each entry carries the hash of the one before it, so
@@ -191,8 +191,6 @@ Change the role to **Supervisor**, click Audit log again.
 > entry. Set one environment variable and the payloads are encrypted at rest
 > with AES-256-GCM — and the chain covers the ciphertext, so an auditor can
 > verify integrity without being able to read the contents."
-
-Optionally switch to **Viewer**: phone numbers redacted, evidence inaccessible.
 
 ---
 

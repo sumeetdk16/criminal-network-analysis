@@ -849,6 +849,12 @@ function renderIntake() {
       <input class="q" id="bfile" type="file" accept=".json,.csv,image/*">
       <div class="btn-row"><button class="btn primary" id="bsubmit">Upload &amp; re-analyse</button></div>
       <div id="bresult"></div>
+      <hr style="border-color:var(--border);margin:16px 0">
+      <label class="flabel">Or clear everything at once</label>
+      <p class="hint" style="margin-bottom:8px">Wipes all six sources and starts completely blank -
+        no subjects, no links, no findings - instead of replacing them one at a time.</p>
+      <div class="btn-row"><button class="btn" id="bnewcase" style="border-color:var(--critical);color:var(--critical)">Start blank new case</button></div>
+      <div id="bnewresult"></div>
     </div>` : `
     <div class="panel"><div class="panel-head"><h2>Load a case dataset</h2>
       <span class="sub">Restricted to administrators.</span></div>
@@ -928,6 +934,24 @@ function renderIntake() {
         await refreshAfterIntake();
       } catch (e) { out.innerHTML = intakeErr(e.message); }
       btn.textContent = 'Upload & re-analyse'; btn.disabled = false;
+    };
+
+    document.getElementById('bnewcase').onclick = async () => {
+      if (!confirm('This clears every source file — FIRs, surveillance, social media, ' +
+        'CDRs, transactions, criminal records and scans — and starts a blank case. ' +
+        'This cannot be undone. Continue?')) return;
+      const btn = document.getElementById('bnewcase'), out = document.getElementById('bnewresult');
+      btn.textContent = 'Clearing…'; btn.disabled = true;
+      try {
+        const r = await api('/api/case/new', {method: 'POST'});
+        out.innerHTML = `<div class="card" style="margin-top:12px">
+          <h4>Case cleared</h4>
+          <p>${r.result.files_cleared.length} source files emptied, ${r.result.scans_removed}
+             scan(s) removed. The case is now blank — ${fmt(r.stats.nodes)} subjects,
+             ${fmt(r.stats.edges)} links.</p></div>`;
+        await refreshAfterIntake();
+      } catch (e) { out.innerHTML = intakeErr(e.message); }
+      btn.textContent = 'Start blank new case'; btn.disabled = false;
     };
   }
 }

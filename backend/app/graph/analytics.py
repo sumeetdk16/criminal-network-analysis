@@ -114,6 +114,16 @@ class NetworkAnalytics:
         if self._communities is not None:
             return self._communities
         P = self.P
+        if P.number_of_nodes() == 0 or P.number_of_edges() == 0:
+            # Modularity is undefined with no edges to weigh (division by the
+            # total degree, which is zero) - every node is its own community.
+            self._communities = {
+                "assignment": {n: i for i, n in enumerate(sorted(P.nodes()))},
+                "groups": [[n] for n in sorted(P.nodes())],
+                "count": P.number_of_nodes(),
+                "algorithm": "greedy modularity (Clauset-Newman-Moore), deterministic",
+                "modularity": 0.0}
+            return self._communities
 
         # Community algorithms break ties by iterating over sets of node ids,
         # and Python randomises string hashing per process. Relabelling to

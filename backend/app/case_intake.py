@@ -254,6 +254,30 @@ def _write_csv(name: str, fieldnames: list[str], rows: list[dict]):
             w.writerow({k: r.get(k, "") for k in fieldnames})
 
 
+def clear_all() -> dict:
+    """
+    Wipe every intake source so the next pipeline run starts from a blank
+    case: empty arrays for the JSON sources, header-only CSVs, and the
+    scanned-document folder emptied. `scanned_source.json` (OCR ground truth
+    for the demo corpus, not an intake source) is left alone.
+    """
+    cleared = []
+    for filename, _, _, _ in JSON_SOURCES.values():
+        _write_json(filename, [])
+        cleared.append(filename)
+    for filename, required in CSV_SOURCES.values():
+        _write_csv(filename, required, [])
+        cleared.append(filename)
+    scans_removed = 0
+    if os.path.isdir(SCANS):
+        for name in os.listdir(SCANS):
+            p = os.path.join(SCANS, name)
+            if os.path.isfile(p):
+                os.remove(p)
+                scans_removed += 1
+    return {"files_cleared": cleared, "scans_removed": scans_removed}
+
+
 def save_scan(filename: str, raw: bytes) -> str:
     """Drop a scanned-document image into data/raw/scans/ for the OCR stage."""
     os.makedirs(SCANS, exist_ok=True)

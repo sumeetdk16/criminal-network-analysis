@@ -369,6 +369,20 @@ def case_quick_add(body: QuickAddBody, user: Principal = Depends(current_user)):
             "new_findings": max(0, after - before)}
 
 
+@app.post("/api/case/new")
+def case_new(user: Principal = Depends(current_user)):
+    """
+    Wipe every source file and start a blank case. Restricted to admins, same
+    as bulk upload/replace - this is that operation applied to all six
+    sources at once instead of one at a time.
+    """
+    require(user, "data:ingest")
+    result = case_intake.clear_all()
+    load(force=True)
+    audit(user, "NEW_CASE", result)
+    return {"status": "cleared", "result": result, "stats": S.graph.stats()}
+
+
 @app.post("/api/case/upload")
 async def case_upload(kind: str = Form(...), mode: str = Form("append"),
                       file: UploadFile = File(...),

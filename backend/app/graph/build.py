@@ -142,10 +142,17 @@ class CaseGraph:
         # runs and made the whole analysis non-reproducible. An investigation
         # tool that returns a different answer on a second run is not usable,
         # and neither is one whose exported ids move.
+        #
+        # ORG_NAMES is a name directory for resolving mentions ("Meridian Exim
+        # Pvt Ltd" in an FIR) to a stable id - it is not itself evidence, so a
+        # company only becomes a node once something in the case actually
+        # references it (a transaction account or a text mention), same as
+        # locations and vehicles below. A blank case must show zero orgs.
+        self._org_meta = {}
         for name in sorted(set(ORG_NAMES) | set(self.raw["org_records"])):
             nid = _org_id(name)
             rec = self.raw["org_records"].get(name, {})
-            self._add_node(nid, label=name, type="ORG", account=rec.get("account"))
+            self._org_meta[nid] = {"label": name, "account": rec.get("account")}
             self.alias_index[name.lower()] = nid
             if rec.get("account"):
                 self.account_index[rec["account"]] = nid
@@ -188,6 +195,8 @@ class CaseGraph:
             b = self.account_index.get(r["to_account"]) or self.resolve_name(r["to_name"])
             if not a or not b or a == b:
                 continue
+            self._use_org(a)
+            self._use_org(b)
             k = tuple(sorted([a, b]))
             p = pair[k]
             p["amt"] += int(r["amount_inr"])
@@ -225,6 +234,8 @@ class CaseGraph:
                 continue
             b = self.resolve_name(rel["b"])
             if a and b:
+                self._use_org(a)
+                self._use_org(b)
                 self._add_edge(a, b, rel["type"], rel["source_id"], rel["source_type"],
                                rel["timestamp"], rel["confidence"], rel["evidence"])
 
@@ -245,6 +256,11 @@ class CaseGraph:
                                    rel["source_id"], "fir", rel["timestamp"], 0.85,
                                    f"Named in {rel['source_id']}")
         return self
+
+    def _use_org(self, nid):
+        meta = self._org_meta.get(nid)
+        if meta:
+            self._add_node(nid, label=meta["label"], type="ORG", account=meta["account"])
 
     def _link_location(self, node, loc_name, source_id, source_type, ts, conf, ev):
         lid = f"L-{loc_name.replace(' ', '_')}"

@@ -1,0 +1,26 @@
+[
+  {
+    "firNumber": "FIR/2026/0411",
+    "policeStation": "Ghatkopar Police Station",
+    "actsAndSections": "NDPS Act s.8(c) r/w s.21",
+    "dateOfRegistration": "2026-06-02T10:15:00",
+    "district": "Ghatkopar",
+    "language": "en-IN",
+    "briefFacts": "Acting on information received, a party intercepted one Pravin Salunke near Ghatkopar. On personal search a small quantity of contraband was recovered. He stated that the material was handed over by Vikram Sethi.",
+    "accusedPersons": [
+      {"name": "Pravin Salunke", "mobile": "9000000005"}
+    ]
+  },
+  {
+    "firNumber": "FIR/2026/0412",
+    "policeStation": "Kurla Police Station",
+    "actsAndSections": "IPC s.387",
+    "dateOfRegistration": "2026-06-05T18:40:00",
+    "district": "Kurla",
+    "language": "hi-IN",
+    "briefFacts": "फरियादी ने बताया कि गणेश पवार ने उसे धमकाया तथा रकम की मांग की। गणेश पवार, राजेश कुमार के लिए काम करता है।",
+    "accusedPersons": [
+      {"name": "गणेश पवार", "mobile": "9000000014"}
+    ]
+  }
+]

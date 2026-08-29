@@ -1,0 +1,24 @@
+[
+  {
+    "personId": "ICJS-MH-0099231",
+    "personName": "Sanjay Bhosale",
+    "caseNumber": "SC/2025/1187",
+    "courtName": "Sessions Court, Greater Mumbai",
+    "stage": "Trial - prosecution evidence",
+    "custodyStatus": "Judicial custody",
+    "custodyFrom": "2026-05-20",
+    "custodyTo": null,
+    "lastHearing": "2026-06-11"
+  },
+  {
+    "personId": "ICJS-MH-0104772",
+    "personName": "Salim Mirza",
+    "caseNumber": "CC/2024/0442",
+    "courtName": "Metropolitan Magistrate, Mazgaon",
+    "stage": "Committed to Sessions",
+    "custodyStatus": "On bail",
+    "custodyFrom": "2024-03-02",
+    "custodyTo": "2024-08-19",
+    "lastHearing": "2026-05-30"
+  }
+]

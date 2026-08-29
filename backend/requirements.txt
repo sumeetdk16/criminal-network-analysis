@@ -1,0 +1,18 @@
+# Core - required
+fastapi>=0.110
+uvicorn[standard]>=0.27
+networkx>=3.0
+pydantic>=2.0
+python-multipart>=0.0.9   # multipart form uploads for case intake
+
+# Recommended - each of these unlocks a capability, and the system degrades to a
+# stated fallback (visible in the System view) when one is absent.
+reportlab>=4.0        # court-ready PDF case files
+cryptography>=42.0    # AES-256-GCM encryption of the audit log at rest
+pillow>=10.0          # scanned-document handling
+pytesseract>=0.3.10   # OCR of scanned FIRs (also needs the tesseract binary)
+
+# Optional
+# spacy>=3.7          # transformer NER; the rule extractor is the fallback
+# scipy>=1.11         # faster PageRank; a pure-Python implementation is built in
+# neo4j>=5.0          # write the graph to a live Neo4j instance

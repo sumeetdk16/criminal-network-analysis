@@ -1,0 +1,15 @@
+__pycache__/
+*.pyc
+backend/audit_log.jsonl
+data/raw/
+.venv/
+.DS_Store
+exports/
+_to_delete/
+venv/
+venv*/
+env/
+
+_sih_project.zip
+ziiAjjEz
+zijKcFoJ

@@ -18,8 +18,9 @@ every single claim it makes — shows the source record behind it.
 Requires Python 3.10+. No database, no npm, no model downloads.
 
 ```bash
+python3 -m venv venv && source venv/bin/activate   # or activate your existing venv
 cd backend
-pip install -r requirements.txt
+pip install -r requirements.txt   # includes python-multipart, required for /api/case/upload
 python3 ../data/generator.py     # generate the synthetic source data
 python3 ../data/make_scans.py    # render the paper-only FIRs (optional)
 python3 run.py                   # → http://127.0.0.1:8000
